@@ -15,6 +15,9 @@ import '../../../rentals/presentation/screens/pengembalian_screen.dart';
 import '../../../rentals/presentation/screens/penyewaan_screen.dart';
 import 'dashboard_screen.dart';
 import 'laporan_screen.dart';
+import '../../../inventory/presentation/screens/katalog_screen.dart';
+import '../../../payments/presentation/screens/pembayaran_screen.dart';
+import '../../../rentals/presentation/screens/pengembalian_screen.dart';
 
 class MainShell extends ConsumerStatefulWidget {
   const MainShell({super.key});
@@ -93,6 +96,14 @@ class _MainShellState extends ConsumerState<MainShell> {
         return const PenggunaScreen();
       case '/profil':
         return const ProfileScreen();
+      case '/katalog':
+        return const KatalogScreen();
+      case '/pengembalian':
+        return const PengembalianScreen();
+      case '/pembayaran':
+        return const PembayaranScreen();
+      case '/laporan':
+        return const LaporanScreen();
       default:
         return const DashboardScreen();
     }

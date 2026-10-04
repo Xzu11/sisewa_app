@@ -305,7 +305,6 @@ class AppDatabase extends _$AppDatabase {
   @override
   int get schemaVersion => 1;
 
-  // ==== SEED DATA DEFAULT ====
   Future<void> seedDefaultData() async {
     final userCount = await users.count().getSingle();
     if (userCount > 0) return;
@@ -314,12 +313,12 @@ class AppDatabase extends _$AppDatabase {
     await batch((b) {
       b.insertAll(level, [
         LevelCompanion.insert(
-          namaLevel: 'admin_ormawa',
-          deskripsi: const Value('Admin pengelola ormawa'),
+          namaLevel: 'admin',
+          deskripsi: const Value('Administrator sistem'),
         ),
         LevelCompanion.insert(
-          namaLevel: 'admin_siswa',
-          deskripsi: const Value('Admin tingkat fakultas/siswa'),
+          namaLevel: 'ormawa',
+          deskripsi: const Value('Organisasi penyedia barang'),
         ),
         LevelCompanion.insert(
           namaLevel: 'penyewa',
@@ -334,7 +333,8 @@ class AppDatabase extends _$AppDatabase {
         username: 'admin',
         passwordHash: 'admin123',
         namaLengkap: 'Administrator SISEWA',
-        role: 'admin_ormawa',
+        email: const Value('admin@student.upnjatim.ac.id'),
+        role: 'admin',
       ),
     );
 
@@ -345,18 +345,10 @@ class AppDatabase extends _$AppDatabase {
         KategoriBarangCompanion.insert(namaKategori: 'Tenda & Camping'),
         KategoriBarangCompanion.insert(namaKategori: 'Sound System'),
         KategoriBarangCompanion.insert(namaKategori: 'Alat Masak'),
+        KategoriBarangCompanion.insert(namaKategori: 'Olahraga'),
         KategoriBarangCompanion.insert(namaKategori: 'Lainnya'),
       ]);
     });
-
-    // 4. Seed Organisasi contoh
-    await into(organisasi).insert(
-      OrganisasiCompanion.insert(
-        namaOrganisasi: 'Badan Eksekutif Mahasiswa',
-        singkatan: 'BEM',
-        fakultas: const Value('Teknik'),
-      ),
-    );
   }
 }
 

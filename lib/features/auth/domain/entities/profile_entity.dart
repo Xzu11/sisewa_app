@@ -50,8 +50,12 @@ class ProfileEntity {
     this.jabatan,
   });
 
-  bool get isAdminOrmawa => role == 'admin_ormawa';
+  bool get isAdmin => role == 'admin';
+  bool get isOrmawa => role == 'ormawa';
   bool get isPenyewa => role == 'penyewa';
+
+  // Legacy
+  bool get isAdminOrmawa => role == 'admin_ormawa' || role == 'ormawa';
 
   String get roleLabel {
     switch (role) {

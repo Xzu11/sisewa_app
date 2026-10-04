@@ -64,12 +64,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       email: _emailCtrl.text.trim(),
       noTelepon: _teleponCtrl.text.trim(),
       role: _role,
-      nim: _role == 'penyewa' ? _nimCtrl.text.trim() : null,
-      kelas: _role == 'penyewa' ? _kelasCtrl.text.trim() : null,
+      nim: _role == AppConstants.rolePenyewa ? _nimCtrl.text.trim() : null,
+      kelas: _role == AppConstants.rolePenyewa ? _kelasCtrl.text.trim() : null,
       fakultas: _fakultasCtrl.text.trim(),
       jurusan: _jurusanCtrl.text.trim(),
-      namaOrganisasi: _role == 'admin_ormawa' ? _namaOrgCtrl.text.trim() : null,
-      singkatanOrganisasi: _role == 'admin_ormawa'
+      namaOrganisasi: _role == AppConstants.roleOrmawa
+          ? _namaOrgCtrl.text.trim()
+          : null,
+      singkatanOrganisasi: _role == AppConstants.roleOrmawa
           ? _singkatanOrgCtrl.text.trim()
           : null,
     );
@@ -135,7 +137,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   _buildRoleSelector(),
                   const SizedBox(height: 24),
 
-                  // ====== DATA AKUN ======
                   // ===== DATA AKUN =====
                   _sectionTitle('Data Akun'),
                   const SizedBox(height: 12),
@@ -145,7 +146,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     controller: _usernameCtrl,
                     decoration: const InputDecoration(
                       labelText: 'Username',
-                      hintText: 'cth: dhiya_akhfiya',
+                      hintText: 'cth: username123',
                       prefixIcon: Icon(Icons.person_outline_rounded),
                     ),
                     validator: (v) {
@@ -230,6 +231,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       labelText: 'Email',
+                      hintText: 'cth: user@student.upnjatim.ac.id',
                       prefixIcon: Icon(Icons.email_outlined),
                     ),
                     validator: (v) {
@@ -256,8 +258,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   const SizedBox(height: 24),
 
                   // ====== DATA KHUSUS PER ROLE ======
-                  if (_role == 'penyewa') ..._penyewaFields(),
-                  if (_role == 'admin_ormawa') ..._adminOrmawaFields(),
+                  if (_role == AppConstants.rolePenyewa) ..._penyewaFields(),
+                  if (_role == AppConstants.roleOrmawa) ..._adminOrmawaFields(),
 
                   const SizedBox(height: 32),
 
@@ -314,19 +316,40 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 title: 'Penyewa',
                 subtitle: 'Sewa barang dari ormawa',
                 icon: Icons.shopping_bag_outlined,
-                value: 'penyewa',
+                value: AppConstants.rolePenyewa,
               ),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: _roleCard(
-                title: 'Admin Ormawa',
-                subtitle: 'Kelola penyewaan ormawa',
-                icon: Icons.admin_panel_settings_outlined,
-                value: 'admin_ormawa',
+                title: 'Ormawa',
+                subtitle: 'Jadi penyedia barang',
+                icon: Icons.storefront_outlined,
+                value: AppConstants.roleOrmawa,
               ),
             ),
           ],
+        ),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: AppColors.infoBg,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              const Icon(Icons.info_outline, size: 16, color: AppColors.info),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Akun admin hanya bisa dibuat oleh sistem.',
+                  style: Theme.of(context).textTheme.bodySmall
+                      ?.copyWith(color: AppColors.info),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

@@ -17,7 +17,11 @@ class UserEntity {
     required this.status,
   });
 
-  bool get isAdminOrmawa => role == 'admin_ormawa';
-  bool get isAdminSiswa => role == 'admin_siswa';
+  bool get isAdmin => role == 'admin';
+  bool get isOrmawa => role == 'ormawa';
   bool get isPenyewa => role == 'penyewa';
+
+  // Legacy (untuk backward compat)
+  bool get isAdminOrmawa => role == 'admin_ormawa' || role == 'ormawa';
+  bool get isAdminSiswa => role == 'admin_siswa';
 }

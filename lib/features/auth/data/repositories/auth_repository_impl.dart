@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/constants/app_constants.dart';
 import '../../../../core/database/app_database.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
@@ -72,7 +73,7 @@ class AuthRepositoryImpl implements AuthRepository {
           );
 
       // 2. Kalau role penyewa → buat Peminjam
-      if (data.role == 'penyewa') {
+      if (data.role == AppConstants.rolePenyewa) {
         await _db
             .into(_db.peminjam)
             .insert(
@@ -89,7 +90,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
 
       // 3. Kalau role admin_ormawa → buat Organisasi + UserOrganisasi
-      if (data.role == 'admin_ormawa' &&
+      if (data.role == AppConstants.roleOrmawa &&
           data.namaOrganisasi != null &&
           data.singkatanOrganisasi != null) {
         final orgId = await _db

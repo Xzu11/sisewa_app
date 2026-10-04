@@ -9,9 +9,16 @@ class AppConstants {
       'Kelola penyewaan barang ormawa dengan mudah';
 
   // ===== USER ROLES =====
+  static const String roleAdmin = 'admin'; // Admin sistem
+  static const String roleOrmawa = 'ormawa'; // Penyedia barang
+  static const String rolePenyewa = 'penyewa'; // Peminjam
+
+  // Legacy (untuk kompatibilitas)
   static const String roleAdminOrmawa = 'admin_ormawa';
   static const String roleAdminSiswa = 'admin_siswa';
-  static const String rolePenyewa = 'penyewa';
+
+  // Email domain kampus
+  static const String emailDomain = '@student.upnjatim.ac.id';
 
   // ===== STATUS UMUM =====
   static const String statusAktif = 'aktif';
